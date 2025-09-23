@@ -11,6 +11,7 @@ body{
     width: 90%;
     max-width: 470px;
     background: linear-gradient(135deg, #00feba, #5b548a);
+    opacity: 0.75;
     color: #fff;
     margin: 100px auto 0;
     border-radius: 20px;
@@ -83,4 +84,5 @@ body{
     font-size: 28px;
     /* margin-top: -6px; */
 }
+
 
