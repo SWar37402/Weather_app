@@ -4,23 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="icon" type="image/x-icon" href="thunderstorms.png">
     <!-- <style>body{background-image: url('digital-art-beautiful-mountains.jpg');}</style> -->
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="thunderstorms.png">
+    <!-- <style class="bgimage">
+        body {
+          background-image: url('bg1.jpg');
+          background-repeat: no-repeat;
+          background-attachment: fixed;
+          background-size: cover;
+        }
+        </style> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
+<body class = "weatherapp" background="bg1.jpg">
     <div class="card">
         <div class="search">
-            <input type="text" placeholder="enter city" spellcheck="false">
+            <input type="text" placeholder="enter location" spellcheck="false">
             <button><i class="fa fa-search"></i></button>
             <!-- <img src="search.png" alt=""> -->
         </div>
-        <div class="weather">
+        <div class="weather" background = "bg1.jpg">
             <img src="rain_s_cloudy.png" alt="" class = "weather-icon">
             <h4 class ="weather-name">Rainy</h4><br>
-            <h1 class="temp">22°C</h1>
-            <h2 class="city">New York</h2>
+            <!-- <h4 class="citytime">Time</h4> -->
+            <h1 class="temp">0°C</h1>
+            <h2 class="city">Location</h2>
             <div class="details">
                 <div class="col">
                     <img src="humidity.png" alt="">
@@ -40,6 +49,7 @@
         </div>
     </div>
 
+    <!-- <script src="script.js"></script> -->
     <script>
 
         const apiKey = "311fbfc0f6c9fa11bbce535d0f760049";
@@ -49,6 +59,8 @@
         const searchBtn = document.querySelector('.search button');
         const weatherIcon = document.querySelector('.weather-icon');
         const cardSelector = document.querySelector('.card');
+        const bgImages = document.querySelector('.bgimage');
+        //const time = document.querySelector('.citytime');
         
         async function checkWeather(city){
             const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
@@ -59,34 +71,55 @@
             document.querySelector(".temp").innerHTML = Math.round(data.main.temp) +'°C';
             document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
             document.querySelector(".wind").innerHTML = data.wind.speed + 'km/h';
+            //document.querySelector(".citytime").innerHTML = data.main.time + 'km/h';
 
             if(data.weather[0].main == 'Clouds'){
                 document.querySelector('.weather-icon').src = 'cloudy.png';
                 document.querySelector('.weather-name').innerHTML = 'Cloudy';
+                document.querySelector('.weatherapp').background = 'bgclouds.jpg'
+                //var audio = new Audio('calming-rain-257596.mp3');
+                //audio.play();
+                //document.getElementById('calming-rain-257596.mp3').play();
             }
+            
             else if(data.weather[0].main == 'Haze'){
+                //audio.stop();
                 document.querySelector('.weather-icon').src = 'haze.png';
                 document.querySelector('.weather-name').innerHTML = 'Haze';
+                document.querySelector('.weatherapp').background = 'bgrain.jpg'
             }
             else if(data.weather[0].main == 'Mist'){
+                //audio.stop();
                 document.querySelector('.weather-icon').src = 'mist.png';
                 document.querySelector('.weather-name').innerHTML = 'Mist';
+                document.querySelector('.weatherapp').background = 'bgmist.jpg'
             }
             else if(data.weather[0].main == 'Clear'){
+                //audio.stop();
                 document.querySelector('.weather-icon').src = 'clear sky.png';
                 document.querySelector('.weather-name').innerHTML = 'Clear';
+                document.querySelector('.weatherapp').background = 'bgclear.jpg'
             }
             else if(data.weather[0].main == 'Drizzle'){
+                //audio.stop();
                 document.querySelector('.weather-icon').src = 'rain_light.png';
                 document.querySelector('.weather-name').innerHTML = 'Light Rain';
+                document.querySelector('.weatherapp').background = 'bgrain.jpg';
             }
             else if(data.weather[0].main == 'Thunderstorm'){
+                //audio.stop();
                 document.querySelector('.weather-icon').src = 'thunderstorms.png';
                 document.querySelector('.weather-name').innerHTML = 'Thunderstorm';
+                document.querySelector('.weatherapp').background = 'bgthunder.jpg'
             }
         }
 
-        searchBtn.addEventListener('click', ()=> {
+        searchBtn.addEventListener('click' ,  ()=> {
+            checkWeather(searchBox.value);
+        })
+
+        addEventListener('keypress', ()=> {
+            if(event.key === "Enter")
             checkWeather(searchBox.value);
         })
 
@@ -94,5 +127,4 @@
 
     </script>
 </body>
-
 </html>
